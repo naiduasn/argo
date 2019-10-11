@@ -7,7 +7,7 @@
 ## Quickstart
 ```bash
 kubectl create namespace argo
-kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/manifests/install.yaml
+kubectl apply -n argo -f https://raw.githubusercontent.com/naiduasn/argo/master/manifests/install.yaml
 ```
 
 ## News
