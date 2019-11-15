@@ -253,7 +253,19 @@ metadata:
   name: workflow-controller-configmap
 data:
   config: |
-    ContainerRuntimeExecutor: k8sapi
+    artifactRepository:
+      archiveLogs: true
+      s3:
+        bucket: fk-flow-argo
+        keyPrefix: data     #optional
+        endpoint: 10.47.2.33        #AWS => s3.amazonaws.com; GCS => storage.googleapis.com
+        insecure: true                  #omit for S3/GCS. Needed when minio runs without TLS
+        accessKeySecret:                #omit if accessing via AWS IAM
+          name: s3-cred
+          key: accesskey
+        secretKeySecret:                #omit if accessing via AWS IAM
+          name: s3-cred
+          key: secretkey
 ---
 apiVersion: v1
 kind: Service
@@ -292,7 +304,7 @@ spec:
           value: "false"
         - name: BASE_HREF
           value: /
-        image: argoproj/argoui:latest
+        image: 10.47.2.76:80/argoproj/argoui:latest
         name: argo-ui
       serviceAccountName: argo-ui
 ---
@@ -314,9 +326,9 @@ spec:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - naiduas/argoexec:d42
+        - 10.47.2.76:80/fk-argo/argoexec:d42-log
         command:
         - workflow-controller
-        image: naiduas/workflow-controller:d42
+        image: 10.47.2.76:80/fk-argo/workflow-controller:d42-log
         name: workflow-controller
       serviceAccountName: argo
