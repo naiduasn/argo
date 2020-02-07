@@ -258,7 +258,7 @@ data:
       s3:
         bucket: fk-flow-argo
         keyPrefix: data     #optional
-        endpoint: 10.47.2.33        #AWS => s3.amazonaws.com; GCS => storage.googleapis.com
+        endpoint: 10.47.1.204        #AWS => s3.amazonaws.com; GCS => storage.googleapis.com
         insecure: true                  #omit for S3/GCS. Needed when minio runs without TLS
         accessKeySecret:                #omit if accessing via AWS IAM
           name: s3-cred
@@ -326,9 +326,9 @@ spec:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - 10.47.2.76:80/fk-argo/argoexec:d42-log
+        - 10.47.2.76:80/fk-argo/argoexec:d42acl
         command:
         - workflow-controller
-        image: 10.47.2.76:80/fk-argo/workflow-controller:d42-log
+        image: 10.47.2.76:80/fk-argo/workflow-controller:d42acl
         name: workflow-controller
       serviceAccountName: argo
